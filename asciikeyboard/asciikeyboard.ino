@@ -127,7 +127,7 @@ void setup() {
   digitalWrite (ss, LOW);
   digitalWrite (strobe, LOW);
   SPI.begin();
-  Serial.begin(115200);
+  //Serial.begin(115200);
 }
 
 void loop() {
@@ -184,7 +184,7 @@ void loop() {
         if (i == 0 && j == 12 && !control_locked)//hardcoded control
           controled = 0; //only stop controling if the lock isn't set
       }
-      if (!prev_key_status[j][i] && key_status[j][i])
+      if (!prev_key_status[j][i] && key_status[j][i]) //key went down
       {
         /*
                 Serial.print("key down");
@@ -201,13 +201,13 @@ void loop() {
           {
             control_locked = 1; //set control lock
             digitalWrite (ctrl_lock, control_locked);
-            Serial.println("set control lock");
+            //Serial.println("set control lock");
           }
           else if (i == 0 && j == 14 && control_locked)//hardcoded lock
           {
             control_locked = 0; //un-set control lock
             digitalWrite (ctrl_lock, control_locked);
-            Serial.println("un-set control lock");
+            //Serial.println("un-set control lock");
           }
           else
           {
@@ -220,13 +220,13 @@ void loop() {
           {
             shift_locked = 1; //set shift lock
             digitalWrite (shift_lock, shift_locked);
-            Serial.println("set shift lock");
+            //Serial.println("set shift lock");
           }
           else if (i == 0 && j == 14 && shift_locked)//hardcoded lock
           {
             shift_locked = 0; //un-set shift lock
             digitalWrite (shift_lock, shift_locked);
-            Serial.println("un-set shift lock");
+            //Serial.println("un-set shift lock");
           }
           else
           {
@@ -317,107 +317,107 @@ void HandleMacro(int macro)
   //operating system or program to execute a specific function that could take multiple keys.
   switch (macro) {
     case 0xff:
-      Serial.println("do nothing");
+      //Serial.println("do nothing");
       break;
     case 0xfe:
-      Serial.println("up"); //from zrt-80 manual
+      //Serial.println("up"); //from zrt-80 manual
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       //SendKey(0x31); //1 might be unneeded, defaults to 1
       SendKey(0x41); //A
       break;
     case 0xfd:
-      Serial.println("down"); //from zrt-80 manual
+      //Serial.println("down"); //from zrt-80 manual
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       //SendKey(0x31); //1 might be unneeded, defaults to 1
       SendKey(0x42); //B
       break;
     case 0xfc:
-      Serial.println("left"); //from zrt-80 manual
+      //Serial.println("left"); //from zrt-80 manual
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       //SendKey(0x31); //1 might be unneeded, defaults to 1
       SendKey(0x44); //D
       break;
     case 0xfb:
-      Serial.println("right"); //from zrt-80 manual
+      //Serial.println("right"); //from zrt-80 manual
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       //SendKey(0x31); //1 might be unneeded, defaults to 1
       SendKey(0x43); //C
       break;
     case 0xfa:
-      Serial.println("wtf? no. stop."); //you are mucking with control and shift at the same time, stop it!
+      //Serial.println("wtf? no. stop."); //you are mucking with control and shift at the same time, stop it!
       break;
     case 0xf9:
-      Serial.println("Erase in Display"); //from wikipedia ANSI_escape_code
+      //Serial.println("Erase in Display"); //from wikipedia ANSI_escape_code
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x32); //2
       SendKey(0x4a); //J
       break;
     case 0xf8:
-      Serial.println("home"); //from zrt-80 manual
+      //Serial.println("home"); //from zrt-80 manual
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x48); //H
       break;
     case 0xf7:
-      Serial.println("F1"); //from wikipedia ANSI_escape_code
+      //Serial.println("F1"); //from wikipedia ANSI_escape_code
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x31); //1
       SendKey(0x50); //P
       break;
     case 0xf6:
-      Serial.println("F2"); //from wikipedia ANSI_escape_code
+      //Serial.println("F2"); //from wikipedia ANSI_escape_code
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x31); //1
       SendKey(0x51); //Q
       break;
     case 0xf5:
-      Serial.println("F3"); //from wikipedia ANSI_escape_code
+      //Serial.println("F3"); //from wikipedia ANSI_escape_code
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x31); //1
       SendKey(0x52); //R
       break;
     case 0xf4:
-      Serial.println("F4"); //from wikipedia ANSI_escape_code
+      //Serial.println("F4"); //from wikipedia ANSI_escape_code
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x31); //1
       SendKey(0x53); //S
       break;
     case 0xf3:
-      Serial.println("normal charset"); //from zrt-80 manual
+      //Serial.println("normal charset"); //from zrt-80 manual
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x67); //g
       break;
     case 0xf2:
-      Serial.println("alt charset"); //from zrt-80 manual
+      //Serial.println("alt charset"); //from zrt-80 manual
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x66); //f
       break;
     case 0xf1:
-      Serial.println("clear display"); //from zrt-80 manual
+      //Serial.println("clear display"); //from zrt-80 manual
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x45); //E
       break;
     case 0xf0:
-      Serial.println("clear"); //spare
+      //Serial.println("clear"); //spare
       SendKey(0x1b); //ESC
       SendKey(0x5b); //[
       SendKey(0x32); //2
       SendKey(0x4a); //J
       break;
     default:
-      Serial.println("undefined macro");
+      //Serial.println("undefined macro");
       break;
   }
 }
@@ -440,7 +440,7 @@ void SendKey(byte code)
   delay(30);
   //look for busy signal
   while (!digitalRead(busy)) { //blocks on busy signal being low
-    Serial.println("blocking for busy line");
+    //Serial.println("blocking for busy line");
   }
   //un-set strobe
   digitalWrite (strobe, LOW);
